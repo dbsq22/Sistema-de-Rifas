@@ -48,7 +48,7 @@ def sortear_ganador(request):
 
 def marcar_pago(request):
     if request.method == 'POST':
-        for persona in Persona.objects.all():
+        for persona in Persona.objects.order_by('nombre', 'apellido'):
             campo_pagado = f'pagado_{persona.id}'
             if campo_pagado in request.POST:
                 persona.pagado = True
