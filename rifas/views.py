@@ -45,3 +45,18 @@ def sortear_ganador(request):
     else:
         messages.error(request, 'No hay personas registradas para sortear')
     return redirect('../lista_personas')
+
+def marcar_pago(request):
+    if request.method == 'POST':
+        for persona in Persona.objects.all():
+            campo_pagado = f'pagado_{persona.id}'
+            if campo_pagado in request.POST:
+                persona.pagado = True
+            else:
+                persona.pagado = False
+            persona.save()
+        mensajes = messages.get_messages(request)
+        personas = Persona.objects.all()
+        return render(request, 'rifas/lista_personas.html', {'personas': personas, 'messages': mensajes})
+    else:
+        return redirect('otra_vista')

@@ -46,24 +46,30 @@
 <body>
     <div class="container">
         <h1>Lista de Personas</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Numero</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for persona in personas %}
-                <tr>
-                    <td>{{ persona.nombre }}</td>
-                    <td>{{ persona.apellido }}</td>
-                    <td>{{ persona.numero }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <form method="post" action="{% url 'rifas:marcar_pago' %}">
+            {% csrf_token %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Numero</th>
+                        <th>Pagado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for persona in personas %}
+                    <tr>
+                        <td>{{ persona.nombre }}</td>
+                        <td>{{ persona.apellido }}</td>
+                        <td>{{ persona.numero }}</td>
+                        <td><input type="checkbox" name="pagado_{{ persona.id }}" {% if persona.pagado %}checked{% endif %}></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Guardar Pagos</button>
+        </form>
         <div class="text-center">
             <a href="../agregar_personas/" class="btn btn-primary">Agregar Personas</a>
             <a href="../../" class="btn btn-primary">Página Principal</a>
