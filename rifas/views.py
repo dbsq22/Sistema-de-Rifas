@@ -58,7 +58,7 @@ def lista_personas(request):
 def limpiar_listas(request):
     Persona.objects.all().delete()
     NumeroDisponible.objects.all().delete()
-    for numero in range(1, 100):
+    for numero in range(0, 100):
         NumeroDisponible.objects.create(numero=numero)
     return redirect('rifas:lista_personas')
 
