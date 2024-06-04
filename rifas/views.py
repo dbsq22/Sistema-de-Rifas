@@ -84,4 +84,7 @@ def marcar_pago(request):
     return redirect('rifas:lista_personas')
 
 def index(request):
+    if not NumeroDisponible.objects.exists():
+        for numero in range(0, 100):
+            NumeroDisponible.objects.create(numero=numero)
     return render(request, 'index.html')
